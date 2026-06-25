@@ -1,187 +1,69 @@
-/* ==========================
-CONTADOR COPA 2026
-========================== */
+/* ===================================
+   MUSEU DAS COPAS DO MUNDO
+   SCRIPT PRINCIPAL
+=================================== */
 
-const contador = document.getElementById("contador");
+/* ===================================
+   BOTÃO VOLTAR AO TOPO
+=================================== */
 
-if (contador) {
-
-```
-const dataCopa = new Date("June 11, 2026 00:00:00").getTime();
-
-const atualizarContador = () => {
-
-    const agora = new Date().getTime();
-
-    const distancia = dataCopa - agora;
-
-    const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
-
-    const horas = Math.floor(
-        (distancia % (1000 * 60 * 60 * 24))
-        / (1000 * 60 * 60)
-    );
-
-    const minutos = Math.floor(
-        (distancia % (1000 * 60 * 60))
-        / (1000 * 60)
-    );
-
-    const segundos = Math.floor(
-        (distancia % (1000 * 60))
-        / 1000
-    );
-
-    contador.innerHTML =
-        `${dias}d ${horas}h ${minutos}m ${segundos}s`;
-
-    if (distancia <= 0) {
-
-        contador.innerHTML =
-        "⚽ A Copa do Mundo 2026 começou!";
-    }
-};
-
-atualizarContador();
-
-setInterval(atualizarContador, 1000);
-```
-
-}
-
-/* ==========================
-MODO ESCURO
-========================== */
-
-const botaoModoEscuro =
-document.getElementById("modoEscuro");
-
-if (botaoModoEscuro) {
-
-```
-const temaSalvo =
-localStorage.getItem("tema");
-
-if (temaSalvo === "dark") {
-
-    document.body.classList.add("dark");
-
-    botaoModoEscuro.innerHTML = "☀️";
-}
-
-botaoModoEscuro.addEventListener("click", () => {
-
-    document.body.classList.toggle("dark");
-
-    if (
-        document.body.classList.contains("dark")
-    ) {
-
-        localStorage.setItem("tema", "dark");
-
-        botaoModoEscuro.innerHTML = "☀️";
-
-    } else {
-
-        localStorage.setItem("tema", "light");
-
-        botaoModoEscuro.innerHTML = "🌙";
-    }
-});
-```
-
-}
-
-/* ==========================
-BOTÃO VOLTAR AO TOPO
-========================== */
-
-const btnTopo =
-document.getElementById("btnTopo");
+const btnTopo = document.getElementById("topo");
 
 window.addEventListener("scroll", () => {
 
-```
-if (!btnTopo) return;
+    if (window.scrollY > 500) {
 
-if (window.scrollY > 400) {
+        btnTopo.style.opacity = "1";
+        btnTopo.style.visibility = "visible";
 
-    btnTopo.style.display = "block";
+    } else {
 
-} else {
-
-    btnTopo.style.display = "none";
-}
-```
-
+        btnTopo.style.opacity = "0";
+        btnTopo.style.visibility = "hidden";
+    }
 });
 
-if (btnTopo) {
-
-```
 btnTopo.addEventListener("click", () => {
 
     window.scrollTo({
 
         top: 0,
-
         behavior: "smooth"
+
     });
+
 });
-```
 
-}
+/* ===================================
+   HEADER DINÂMICO
+=================================== */
 
-/* ==========================
-ANIMAÇÃO DOS CARDS
-========================== */
+const header = document.querySelector("header");
 
-const cards =
-document.querySelectorAll(".card");
+window.addEventListener("scroll", () => {
 
-const observer = new IntersectionObserver(
+    if (window.scrollY > 100) {
 
-(entries) => {
+        header.style.background =
+        "rgba(255,255,255,0.98)";
 
-```
-entries.forEach((entry) => {
+        header.style.boxShadow =
+        "0 5px 20px rgba(0,0,0,.15)";
 
-    if (entry.isIntersecting) {
+    } else {
 
-        entry.target.style.opacity = "1";
+        header.style.background =
+        "rgba(255,255,255,.95)";
 
-        entry.target.style.transform =
-        "translateY(0)";
+        header.style.boxShadow =
+        "0 2px 15px rgba(0,0,0,.08)";
     }
-});
-```
-
-},
-
-{
-threshold: 0.2
-}
-);
-
-cards.forEach((card) => {
-
-```
-card.style.opacity = "0";
-
-card.style.transform =
-"translateY(40px)";
-
-card.style.transition =
-"all 0.8s ease";
-
-observer.observe(card);
-```
 
 });
 
-/* ==========================
-QUIZ
-========================== */
+/* ===================================
+   QUIZ DA COPA
+=================================== */
 
 const perguntas = [
 
@@ -190,7 +72,7 @@ pergunta:
 "Qual seleção possui mais títulos da Copa do Mundo?",
 
 opcoes:
-["Brasil","Alemanha","Argentina","Itália"],
+["Brasil", "Alemanha", "Argentina", "Itália"],
 
 resposta:
 "Brasil"
@@ -198,10 +80,10 @@ resposta:
 
 {
 pergunta:
-"Qual país sediou a primeira Copa do Mundo?",
+"Onde foi realizada a primeira Copa do Mundo?",
 
 opcoes:
-["Brasil","Argentina","Uruguai","França"],
+["Brasil", "Uruguai", "Argentina", "França"],
 
 resposta:
 "Uruguai"
@@ -209,10 +91,10 @@ resposta:
 
 {
 pergunta:
-"Quem foi campeão da Copa de 2022?",
+"Quem foi campeão da Copa do Mundo de 2022?",
 
 opcoes:
-["França","Brasil","Argentina","Croácia"],
+["França", "Brasil", "Argentina", "Croácia"],
 
 resposta:
 "Argentina"
@@ -220,30 +102,30 @@ resposta:
 
 {
 pergunta:
-"Quantos títulos o Brasil possui?",
+"Quem é o maior artilheiro da história das Copas?",
 
 opcoes:
-["3","4","5","6"],
+["Pelé", "Messi", "Klose", "Ronaldo"],
 
 resposta:
-"5"
+"Klose"
 },
 
 {
 pergunta:
-"Quem criou a Copa do Mundo?",
+"Quantos títulos possui o Brasil?",
 
 opcoes:
-["Pelé","Jules Rimet","FIFA","João Havelange"],
+["4", "5", "6", "7"],
 
 resposta:
-"Jules Rimet"
+"5"
 }
 
 ];
 
 let perguntaAtual = 0;
-let pontuacao = 0;
+let pontos = 0;
 
 const perguntaElemento =
 document.getElementById("pergunta");
@@ -256,136 +138,254 @@ document.getElementById("resultado");
 
 function carregarPergunta() {
 
-```
-if (
-    !perguntaElemento ||
-    !opcoesElemento
-) return;
+    if (
+        !perguntaElemento ||
+        !opcoesElemento
+    ) return;
 
-const pergunta =
-perguntas[perguntaAtual];
+    const pergunta =
+    perguntas[perguntaAtual];
 
-perguntaElemento.innerHTML =
-pergunta.pergunta;
+    perguntaElemento.innerHTML =
+    pergunta.pergunta;
 
-opcoesElemento.innerHTML = "";
+    opcoesElemento.innerHTML = "";
 
-pergunta.opcoes.forEach((opcao) => {
+    pergunta.opcoes.forEach(opcao => {
 
-    const botao =
-    document.createElement("button");
+        const botao =
+        document.createElement("button");
 
-    botao.innerText = opcao;
+        botao.innerText = opcao;
 
-    botao.classList.add("opcaoQuiz");
+        botao.addEventListener(
+            "click",
+            () => verificarResposta(opcao)
+        );
 
-    botao.onclick = () =>
-    verificarResposta(opcao);
+        opcoesElemento.appendChild(botao);
 
-    opcoesElemento.appendChild(botao);
-});
-```
+    });
 
 }
 
 function verificarResposta(resposta) {
 
-```
-if (
-    resposta ===
-    perguntas[perguntaAtual].resposta
-) {
+    if (
+        resposta ===
+        perguntas[perguntaAtual].resposta
+    ) {
 
-    pontuacao++;
-}
+        pontos++;
 
-perguntaAtual++;
+    }
 
-if (
-    perguntaAtual <
-    perguntas.length
-) {
+    perguntaAtual++;
 
-    carregarPergunta();
+    if (
+        perguntaAtual <
+        perguntas.length
+    ) {
 
-} else {
+        carregarPergunta();
 
-    mostrarResultado();
-}
-```
+    } else {
+
+        mostrarResultado();
+
+    }
 
 }
 
 function mostrarResultado() {
 
-```
-if (
-    !resultadoElemento ||
-    !opcoesElemento
-) return;
+    perguntaElemento.innerHTML =
+    "Quiz Finalizado!";
 
-perguntaElemento.innerHTML =
-"Quiz Finalizado!";
+    opcoesElemento.innerHTML = "";
 
-opcoesElemento.innerHTML = "";
+    let mensagem = "";
 
-resultadoElemento.innerHTML =
+    if (pontos === 5) {
 
-`Você acertou ${pontuacao} de ${perguntas.length} perguntas.`;
-```
+        mensagem =
+        "🏆 Perfeito! Você é um especialista em Copas do Mundo.";
 
+    } else if (pontos >= 3) {
+
+        mensagem =
+        "⚽ Muito bem! Você conhece bastante sobre a história das Copas.";
+
+    } else {
+
+        mensagem =
+        "📚 Continue estudando para se tornar um craque da história das Copas.";
+    }
+
+    resultadoElemento.innerHTML =
+
+    `
+    <strong>Você acertou ${pontos} de ${perguntas.length} perguntas.</strong>
+    <br><br>
+    ${mensagem}
+    `;
 }
 
 if (
-perguntaElemento &&
-opcoesElemento
+    perguntaElemento &&
+    opcoesElemento
 ) {
 
-```
-carregarPergunta();
-```
+    carregarPergunta();
 
 }
 
-/* ==========================
-HEADER DINÂMICO
-========================== */
+/* ===================================
+   ANIMAÇÃO AO APARECER
+=================================== */
 
-const header =
-document.querySelector("header");
+const elementos =
+document.querySelectorAll(
+'.card, .evento, .quiz-box'
+);
 
-window.addEventListener("scroll", () => {
+const observador =
+new IntersectionObserver(
 
-```
-if (!header) return;
+(entries) => {
 
-if (window.scrollY > 80) {
+    entries.forEach(entry => {
 
-    header.style.padding =
-    "12px 8%";
+        if (entry.isIntersecting) {
 
-} else {
+            entry.target.style.opacity = "1";
 
-    header.style.padding =
-    "18px 8%";
+            entry.target.style.transform =
+            "translateY(0)";
+        }
+
+    });
+
+},
+
+{
+    threshold: 0.15
 }
-```
+
+);
+
+elementos.forEach(elemento => {
+
+    elemento.style.opacity = "0";
+
+    elemento.style.transform =
+    "translateY(40px)";
+
+    elemento.style.transition =
+    "all .8s ease";
+
+    observador.observe(elemento);
 
 });
 
-/* ==========================
-ANO AUTOMÁTICO RODAPÉ
-========================== */
+/* ===================================
+   MENU ATIVO
+=================================== */
 
-const rodape =
-document.getElementById("anoAtual");
+const secoes =
+document.querySelectorAll("section");
 
-if (rodape) {
+const links =
+document.querySelectorAll("nav a");
 
-```
-rodape.innerHTML =
-new Date().getFullYear();
-```
+window.addEventListener("scroll", () => {
+
+    let atual = "";
+
+    secoes.forEach(secao => {
+
+        const topo =
+        secao.offsetTop - 150;
+
+        const altura =
+        secao.offsetHeight;
+
+        if (
+            window.scrollY >= topo &&
+            window.scrollY < topo + altura
+        ) {
+
+            atual = secao.getAttribute("id");
+
+        }
+
+    });
+
+    links.forEach(link => {
+
+        link.classList.remove("ativo");
+
+        if (
+            link.getAttribute("href")
+            === "#" + atual
+        ) {
+
+            link.classList.add("ativo");
+
+        }
+
+    });
+
+});
+
+/* ===================================
+   EFEITO DE DIGITAÇÃO NO HERO
+=================================== */
+
+const tituloHero =
+document.querySelector(".hero h1");
+
+if (tituloHero) {
+
+    const textoOriginal =
+    tituloHero.textContent;
+
+    tituloHero.textContent = "";
+
+    let indice = 0;
+
+    function escrever() {
+
+        if (
+            indice <
+            textoOriginal.length
+        ) {
+
+            tituloHero.textContent +=
+            textoOriginal.charAt(indice);
+
+            indice++;
+
+            setTimeout(
+                escrever,
+                50
+            );
+        }
+
+    }
+
+    escrever();
 
 }
+
+/* ===================================
+   ANO AUTOMÁTICO NO RODAPÉ
+=================================== */
+
+const anoAtual =
+new Date().getFullYear();
+
+console.log(
+`Museu das Copas © ${anoAtual}`
+);
 
